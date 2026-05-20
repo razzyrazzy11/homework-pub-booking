@@ -4,28 +4,15 @@
 
 ### Your answer
 
-In my Ex7 run (session sess_a382a2149fc1), the planner's second
-subgoal was sg_2 "commit the booking under policy rules" with
-assigned_half: "structured". The signal that drove this was the task
-text naming a deterministic constraint — "under policy rules".
-Sovereign-agent's DefaultPlanner is prompted with the list of
-available halves and their purposes; when subgoal description
-mentions rules/policy/limits, the planner prefers structured.
+In session sess_da3622747b05, the planner produced two subgoals and assigned both to the loop half (sg_1: research a suitable venue; sg_2: draft the flyer) — assigned_half: "loop" in each. The planner did not route anything to the structured half. The handoff instead arose at execution time, inside sg_1.
 
-This decision is advisory, not physical. The orchestrator respects
-it only because both halves are wired up. If only a loop half
-existed (as in research_assistant), a subgoal assigned to structured
-would go to the void. That's failure mode #4 from the course slides.
+While executing sg_1, the executor called venue_search four times (Old Town, Grassmarket, Edinburgh ×2), every call with party_size: 50 and budgets rising 500→1500 GBP, and every call returned 0 result(s). The fourth call tripped the spiral guard ("STOP calling venue_search; use the results you already have."). The executor then emitted a handoff_to_structured call with reason: "No venues found after multiple searches" and context: "Tried areas: Old Town, Grassmarket, Edinburgh with budgets 500-1500 GBP for party of 50"; the ticket records handoff_requested: true, search_attempts: 4, turns_used: 5.
 
-The broader lesson: the planner makes an architectural decision
-based on prose interpretation. Put the rules somewhere the LLM
-cannot mis-assign — in the structured half's Python — and prose
-ambiguity no longer matters.
+The signal driving the handoff was therefore not the planner's prose interpretation but an empirical dead-end at runtime: repeated tool failure plus the spiral-guard stop condition. The lesson — escalate to a different half when the current half exhausts its options, rather than looping indefinitely.
 
 ### Citation
 
-- sessions/sess_a382a2149fc1/logs/tickets/tk_*/raw_output.json
-- sessions/sess_a382a2149fc1/logs/trace.jsonl:23
+- ~/.local/share/sovereign-agent/examples/ex5-edinburgh-research/sess_da3622747b05/logs/tickets/tk_9d343cc4/raw_output.json
 
 ---
 

@@ -124,12 +124,32 @@ def verify_dataflow(flyer_content: str) -> IntegrityResult:
     facts_to_check.extend(extract_temperature_facts(flyer_content))
     facts_to_check.extend(extract_condition_facts(flyer_content))
 
-    # De-dupe while preserving order
+    # HTML flyers: data-testid values are canonical facts.
+    for v in extract_testid_facts(flyer_content).values():
+        v = v.strip()
+        if v:
+            facts_to_check.append(v)
+
+    # Adjective + temperature ("scorching 35C") — catches CI probe plant #3.
+    stripped = re.sub(r"<[^>]+>", " ", flyer_content)
+    for m in re.finditer(r"\b([a-z]+\s+\d+\s*°?\s*[Cc]\b)", stripped):
+        facts_to_check.append(m.group(1))
+
+    # Value after a label-colon ("Total: Castle Royal Grand Inn") — catches CI probe plant #2.
+    # Works on both markdown ("**Total:** ...") and probe's plain-text format.
+    # lstrip strips markdown emphasis markers (**, __) from captured value —
+    # without this, "**Total:** £540" extracts "** £540" which substring-search
+    # fails to find in the log (the log has "£540" without the `**` prefix).
+    for m in re.finditer(r"\b[A-Z][a-z]+:\s*([^.\n]+?)(?:\.\s|\.$|\n|$)", stripped):
+        val = m.group(1).strip().lstrip("*_ \t")
+        if val and not re.fullmatch(r"\d+", val):
+            facts_to_check.append(val)
+
     seen: set[str] = set()
     deduped: list[str] = []
     for f in facts_to_check:
         key = f.lower().strip()
-        if key not in seen:
+        if key and key not in seen:
             seen.add(key)
             deduped.append(f)
 
@@ -138,10 +158,20 @@ def verify_dataflow(flyer_content: str) -> IntegrityResult:
             ok=True, summary="no extractable facts in flyer (verified vacuously)"
         )
 
-    verified: list[str] = []
-    unverified: list[str] = []
-    for fact in deduped:
+    # Substring matching: phrases may appear inside larger values.
+    def _fact_in_log_substring(fact: str) -> bool:
         if fact_appears_in_log(fact):
+            return True
+        target = fact.lower().strip("£°c ").strip()
+        for r in _TOOL_CALL_LOG:
+            for blob in (r.arguments, r.output):
+                if target and target in str(blob).lower():
+                    return True
+        return False
+
+    verified, unverified = [], []
+    for fact in deduped:
+        if _fact_in_log_substring(fact):
             verified.append(fact)
         else:
             unverified.append(fact)
