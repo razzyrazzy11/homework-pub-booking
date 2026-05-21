@@ -10,9 +10,12 @@ While executing sg_1, the executor called venue_search four times (Old Town, Gra
 
 The signal driving the handoff was therefore not the planner's prose interpretation but an empirical dead-end at runtime: repeated tool failure plus the spiral-guard stop condition. The lesson — escalate to a different half when the current half exhausts its options, rather than looping indefinitely.
 
+Notably, the planner did not route it to the structured half. The planner assigned both subgoals to the loop half (assigned_half: "loop"). The handoff instead emerged at execution time, when the executor exhausted its options. This is itself the answer to 'where does the handoff decision live'. In this architecture, it is not always a planner-level routing choice, it could be a runtime escalation. The planner's decision was to not pre-route, trusting the executor to escalate if research failed, which is exactly what happened. 
+
 ### Citation
 
-- ~/.local/share/sovereign-agent/examples/ex5-edinburgh-research/sess_da3622747b05/logs/tickets/tk_9d343cc4/raw_output.json
+- sessions/sess_da3622747b05/logs/tickets/tk_9d343cc4/raw_output.json
+- sessions/sess_da3622747b05/logs/tickets/tk_9642df2f/raw_output.json
 
 ---
 
