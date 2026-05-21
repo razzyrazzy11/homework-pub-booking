@@ -35,4 +35,4 @@ retries within one session.
 
 - starter/rasa_half/validator.py — normalise_booking_payload + helpers
 - starter/rasa_half/structured_half.py — RasaStructuredHalf.run + mock server
-- ~/.local/share/sovereign-agent/examples/ex6-rasa-half/sess_650e7ded7074 — committed run (BK-7D401E9E)
+- sessions/sess_650e7ded7074/SESSION.md — Ex6 scenario and task setup for the committed Rasa run
