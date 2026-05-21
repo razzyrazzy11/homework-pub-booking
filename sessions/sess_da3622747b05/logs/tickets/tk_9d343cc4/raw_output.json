@@ -1,0 +1,77 @@
+{
+  "subgoal_id": "sg_1",
+  "success": true,
+  "final_answer": "(handoff requested)",
+  "tool_calls_made": [
+    {
+      "name": "venue_search",
+      "arguments": {
+        "near": "Old Town",
+        "party_size": 50,
+        "budget_max_gbp": 500
+      },
+      "success": true,
+      "summary": "venue_search(Old Town, party=50): 0 result(s)",
+      "requires_human_approval": false
+    },
+    {
+      "name": "venue_search",
+      "arguments": {
+        "near": "Grassmarket",
+        "party_size": 50,
+        "budget_max_gbp": 750
+      },
+      "success": true,
+      "summary": "venue_search(Grassmarket, party=50): 0 result(s)",
+      "requires_human_approval": false
+    },
+    {
+      "name": "venue_search",
+      "arguments": {
+        "near": "Edinburgh",
+        "party_size": 50,
+        "budget_max_gbp": 1000
+      },
+      "success": true,
+      "summary": "venue_search(Edinburgh, party=50): 0 result(s)",
+      "requires_human_approval": false
+    },
+    {
+      "name": "venue_search",
+      "arguments": {
+        "near": "Edinburgh",
+        "party_size": 50,
+        "budget_max_gbp": 1500
+      },
+      "success": false,
+      "summary": "STOP calling venue_search; use the results you already have.",
+      "requires_human_approval": false
+    },
+    {
+      "name": "handoff_to_structured",
+      "arguments": {
+        "reason": "No venues found after multiple searches",
+        "context": "Tried areas: Old Town, Grassmarket, Edinburgh with budgets 500-1500 GBP for party of 50",
+        "data": {
+          "search_attempts": 4,
+          "last_budget": 1500,
+          "party_size": 50
+        }
+      },
+      "success": true,
+      "summary": "handoff to structured half: No venues found after multiple searches",
+      "requires_human_approval": false
+    }
+  ],
+  "turns_used": 5,
+  "handoff_requested": true,
+  "handoff_payload": {
+    "reason": "No venues found after multiple searches",
+    "context": "Tried areas: Old Town, Grassmarket, Edinburgh with budgets 500-1500 GBP for party of 50",
+    "data": {
+      "search_attempts": 4,
+      "last_budget": 1500,
+      "party_size": 50
+    }
+  }
+}
