@@ -1,0 +1,12 @@
+{"event_type": "voice.utterance_in", "actor": "user", "timestamp": "2026-05-20T15:21:28.321553+00:00", "payload": {"text": "Hi . I'd like to book a table for six on Friday the 25th at half seven .", "turn": 0, "mode": "voice"}}
+{"event_type": "voice.utterance_out", "actor": "manager", "timestamp": "2026-05-20T15:21:29.993323+00:00", "payload": {"text": "Aye, we can do that. I'll pencil you in for the 25th at half seven. What's the contact number?", "turn": 0, "mode": "voice"}}
+{"event_type": "voice.utterance_in", "actor": "user", "timestamp": "2026-05-20T15:21:48.927491+00:00", "payload": {"text": "Sure . It's 07700\u00a0900123 .", "turn": 1, "mode": "voice"}}
+{"event_type": "voice.utterance_out", "actor": "manager", "timestamp": "2026-05-20T15:21:49.864028+00:00", "payload": {"text": "Got it, 07700 900123. See you on the 25th.", "turn": 1, "mode": "voice"}}
+{"event_type": "voice.utterance_in", "actor": "user", "timestamp": "2026-05-20T15:22:11.156549+00:00", "payload": {"text": "What deposit do you need ? Can we do \u00a3400 ?", "turn": 2, "mode": "voice"}}
+{"event_type": "voice.utterance_out", "actor": "manager", "timestamp": "2026-05-20T15:22:11.870892+00:00", "payload": {"text": "Too much, head office needs to sign off on that.", "turn": 2, "mode": "voice"}}
+{"event_type": "voice.utterance_in", "actor": "user", "timestamp": "2026-05-20T15:22:24.586066+00:00", "payload": {"text": "Okay . 200 is fine . Then .", "turn": 3, "mode": "voice"}}
+{"event_type": "voice.utterance_out", "actor": "manager", "timestamp": "2026-05-20T15:22:25.869391+00:00", "payload": {"text": "Aye, that's fine. \u00a3200 deposit, see you on the 25th.", "turn": 3, "mode": "voice"}}
+{"event_type": "voice.utterance_in", "actor": "user", "timestamp": "2026-05-20T15:22:35.253575+00:00", "payload": {"text": "Goodbye .", "turn": 4, "mode": "voice"}}
+{"event_type": "voice.utterance_out", "actor": "manager", "timestamp": "2026-05-20T15:22:35.597625+00:00", "payload": {"text": "Cheerio.", "turn": 4, "mode": "voice"}}
+{"event_type": "voice.utterance_in", "actor": "user", "timestamp": "2026-05-20T15:22:39.616288+00:00", "payload": {"text": "Curium .", "turn": 5, "mode": "voice"}}
+{"event_type": "voice.utterance_out", "actor": "manager", "timestamp": "2026-05-20T15:22:39.909144+00:00", "payload": {"text": "What's that supposed to mean?", "turn": 5, "mode": "voice"}}

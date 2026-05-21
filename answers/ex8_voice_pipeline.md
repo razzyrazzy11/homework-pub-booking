@@ -29,4 +29,4 @@ cap, so only the deposit constraint was triggered this run.
 
 - starter/voice_pipeline/voice_loop.py — run_voice_mode, STT/TTS, utterance events
 - starter/voice_pipeline/manager_persona.py — £300 cap, party-size-8 limit
-- ~/.local/share/sovereign-agent/homework/ex8/sess_30fa6d6a9586 — full voice run
+- sessions/sess_30fa6d6a9586/logs/trace.jsonl — voice run; utterance_in/utterance_out events
